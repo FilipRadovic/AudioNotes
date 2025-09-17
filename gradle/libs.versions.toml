@@ -13,6 +13,7 @@ room = "2.6.1"
 hilt = "2.51.1"
 hiltNavCompose = "1.2.0"
 navigation-compose = "2.8.6"
+gson = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +40,8 @@ hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.re
 hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavCompose"}
 
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 
 [plugins]
