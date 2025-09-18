@@ -1,4 +1,4 @@
-package com.frcoding.audionotes.ui.theme
+package com.frcoding.audionotes.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
