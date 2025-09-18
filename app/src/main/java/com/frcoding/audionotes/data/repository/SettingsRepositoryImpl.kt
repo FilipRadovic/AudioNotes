@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import javax.inject.Inject
 
-class SettingsRepository @Inject constructor(
+class SettingsRepositoryImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : SettingsRepository {
     private val gson = Gson()
