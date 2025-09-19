@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AudioNotes</string>
+    <string name="top_bar_title">Audio Notes</string>
+    <string name="no_entries">No Entries</string>
+    <string name="home_screen_supporting_text">Start recording your first note</string>
+    <string name="settings_button">Settings button</string>
 </resources>

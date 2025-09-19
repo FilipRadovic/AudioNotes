@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.frcoding.audionotes.utils.Constants
 
 class NavigationState (
     val navHostController: NavHostController
@@ -13,6 +14,14 @@ class NavigationState (
     }
 
     fun popBackStack() = navHostController.popBackStack()
+
+    fun navigateToEntry(
+        audioFilePath: String,
+        amplitudeLogFilePath: String,
+        entryId: Long = Constants.UNDEFINED_ENTRY_ID
+    ) {
+        navHostController.navigate("${Screen.Entry.route}/$audioFilePath/$amplitudeLogFilePath/$entryId")
+    }
 }
 
 @Composable
