@@ -1,9 +1,17 @@
 package com.frcoding.audionotes.presentation.screens.home
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.frcoding.audionotes.R
@@ -13,6 +21,9 @@ import com.frcoding.audionotes.presentation.core.base.BaseContentLayout
 import com.frcoding.audionotes.presentation.screens.home.components.EmptyHomeScreen
 import com.frcoding.audionotes.presentation.screens.home.components.HomeFAB
 import com.frcoding.audionotes.presentation.screens.home.components.HomeTopBar
+import com.frcoding.audionotes.presentation.screens.home.components.NotesEntries
+import com.frcoding.audionotes.presentation.screens.home.components.NotesFilter
+import com.frcoding.audionotes.presentation.screens.home.components.RecordingBottomSheet
 import com.frcoding.audionotes.presentation.screens.home.handling.HomeActionEvent
 import com.frcoding.audionotes.presentation.screens.home.handling.HomeUiAction
 
@@ -63,7 +74,10 @@ fun HomeScreenRoot(
             )
         }
 
-        RecordingBottomSheet()
+        RecordingBottomSheet(
+            homeSheetState = uiState.homeSheetState,
+            onUiAction = viewModel::onUiAction
+        )
     }
 }
 
@@ -72,5 +86,33 @@ fun HomeScreen(
     uiState: HomeUiState,
     onUiAction: (HomeUiAction) -> Unit
 ) {
+    var filterOffset by remember { mutableStateOf(IntOffset.Zero) }
+
+    Column {
+        NotesFilter(
+            filterState = uiState.filterState,
+            onUiAction = onUiAction,
+            modifier = Modifier
+                .onGloballyPositioned { coordinates ->
+                    filterOffset = IntOffset(
+                        coordinates.positionInParent().x.toInt(),
+                        coordinates.positionInParent().y.toInt()
+                    )
+                }
+        )
+
+        if (uiState.entries.isEmpty() && uiState.isFilterActive) {
+            EmptyHomeScreen(
+                title = stringResource(R.string.no_entries_found),
+                supportingText = stringResource(R.string.no_entries_found_supporting_text)
+            )
+        }
+
+        NotesEntries(
+            entryNotes = uiState.entries,
+            onUiAction = onUiAction
+        )
+    }
+
 
 }

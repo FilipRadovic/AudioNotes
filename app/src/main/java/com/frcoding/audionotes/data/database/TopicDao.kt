@@ -1,11 +1,12 @@
 package com.frcoding.audionotes.data.database
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.frcoding.audionotes.data.entity.TopicDb
 import kotlinx.coroutines.flow.Flow
-
+@Dao
 interface TopicDao {
     @Query("SELECT * FROM topics ORDER BY name ASC")
     fun getTopics(): Flow<List<TopicDb>>

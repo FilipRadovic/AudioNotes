@@ -4,4 +4,15 @@
     <string name="no_entries">No Entries</string>
     <string name="home_screen_supporting_text">Start recording your first note</string>
     <string name="settings_button">Settings button</string>
+    <string name="pause_button">Pause button</string>
+    <string name="recording_button">Recording button</string>
+    <string name="recording_your_memories">Recording your memories...</string>
+    <string name="recording_paused">Recording paused</string>
+    <string name="cancel_recording">Cancel recording?</string>
+    <string name="all_moods">All moods</string>
+    <string name="all_topics">All topics</string>
+    <string name="clear_filter">Clear filter</string>
+    <string name="no_entries_found">No entries found</string>
+    <string name="no_entries_found_supporting_text">Try adjusting your filters to find what you\'re looking for</string>
+
 </resources>

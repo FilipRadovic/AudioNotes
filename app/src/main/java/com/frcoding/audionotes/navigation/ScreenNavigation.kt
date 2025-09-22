@@ -1,21 +1,18 @@
 package com.frcoding.audionotes.navigation
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
+import com.frcoding.audionotes.presentation.screens.home.HomeScreenRoot
 
-@Composable
-fun RootAppNavigation(
+fun NavGraphBuilder.homeRoute(
     navigationState: NavigationState,
     isDataLoaded: () -> Unit,
     isLaunchedFromWidget: Boolean,
     modifier: Modifier = Modifier
 ) {
-    NavHost(
-        navController = navigationState.navHostController,
-        startDestination = Screen.Home.route
-    ) {
-        homeRoute(
+    composable(route = Screen.Home.route) {
+        HomeScreenRoot(
             navigationState = navigationState,
             isDataLoaded = isDataLoaded,
             isLaunchedFromWidget = isLaunchedFromWidget,

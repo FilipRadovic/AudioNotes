@@ -41,7 +41,7 @@ class HomeUiState(
     ) {
         data class FilterItem(
             val title: String = "",
-            val isChecked: String = ""
+            val isChecked: Boolean = false
         )
     }
 

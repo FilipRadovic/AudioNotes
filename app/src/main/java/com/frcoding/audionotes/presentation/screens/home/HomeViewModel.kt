@@ -6,10 +6,12 @@ import com.frcoding.audionotes.domain.repository.EntryRepository
 import com.frcoding.audionotes.presentation.core.base.BaseViewModel
 import com.frcoding.audionotes.presentation.screens.home.handling.HomeActionEvent
 import com.frcoding.audionotes.presentation.screens.home.handling.HomeUiAction
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 private typealias HomeBaseViewModel = BaseViewModel<HomeUiState, HomeUiAction, HomeActionEvent>
 
+@HiltViewModel
 class HomeViewModel @Inject constructor(
     private val entryRepository: EntryRepository,
     private val audioPlayer: AudioPlayer,

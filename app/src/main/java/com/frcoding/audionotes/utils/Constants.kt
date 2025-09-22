@@ -8,4 +8,6 @@ object Constants {
     const val APP_PREFERENCES_NAME = "app_prefs"
     const val DEFAULT_FORMATTED_TIME = "00:00:00"
     const val UNDEFINED_ENTRY_ID = -1L
+    const val KEY_WIDGET_INTENT = "from_widget"
+    const val UNDEFINED_MOOD_ICON_RES = 0
 }
