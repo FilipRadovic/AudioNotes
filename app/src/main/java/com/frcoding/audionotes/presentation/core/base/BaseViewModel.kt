@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.frcoding.audionotes.presentation.core.base.handling.ActionEvent
 import com.frcoding.audionotes.presentation.core.base.handling.UiAction
 import com.frcoding.audionotes.presentation.core.base.handling.UiState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,6 +13,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 abstract class BaseViewModel<S: UiState, U: UiAction, A: ActionEvent> : ViewModel() {
     protected abstract val initialState: S
@@ -34,6 +37,10 @@ abstract class BaseViewModel<S: UiState, U: UiAction, A: ActionEvent> : ViewMode
             _actionEvent.send(actionEvent)
         }
     }
+    protected fun launch(
+        context: CoroutineContext = EmptyCoroutineContext,
+        block: suspend CoroutineScope.() -> Unit
+    ) = viewModelScope.launch(context = context, block =  block)
 
     abstract fun onUiAction(uiAction: U)
 }

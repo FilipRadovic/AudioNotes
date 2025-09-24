@@ -8,7 +8,7 @@ import com.frcoding.audionotes.utils.Constants
 import java.time.Instant
 
 @Stable
-class HomeUiState(
+data class HomeUiState(
     val entries: Map<Instant, List<EntryHolderState>> = mapOf(),
     val filterState: FilterState = FilterState(),
     val isFilterActive: Boolean = false,

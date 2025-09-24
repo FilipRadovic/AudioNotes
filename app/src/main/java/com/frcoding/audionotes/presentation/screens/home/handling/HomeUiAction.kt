@@ -14,6 +14,7 @@ sealed interface HomeUiAction : UiAction {
 
     data object MoodsFilterToggled : HomeUiAction
     data object TopicsFilterToggled : HomeUiAction
+    data object TopicsFilterClearClicked : HomeUiAction
     data object MoodsFilterClearClicked : HomeUiAction
     data class MoodFilterItemClicked(val title: String) : HomeUiAction
     data class TopicFilterItemClicked(val title: String) : HomeUiAction
