@@ -1,6 +1,9 @@
 package com.frcoding.audionotes.presentation.core.state
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Stable
+import com.frcoding.audionotes.utils.InstantFormatter
 
 @Stable
 data class PlayerState(
@@ -10,6 +13,8 @@ data class PlayerState(
     val action: Action = Action.Initializing,
     val amplitudeLogFilePath: String = ""
 ) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    val durationText = InstantFormatter.formatMillisToTime(duration.toLong())
 
     sealed interface Action {
         data object Initializing : Action

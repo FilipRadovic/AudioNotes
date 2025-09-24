@@ -52,9 +52,9 @@ sealed class MoodUiModel(
     data object Neutral : MoodUiModel(
         title = "Neutral",
         moodIcons = MoodIcons(
-            fill = R.drawable.ic_neutral_mood,
-            stroke = R.drawable.ic_neutral_stroke,
-            outline = R.drawable.ic_neutral_outline
+            fill = R.drawable.icon_neutral_mood,
+            stroke = R.drawable.icon_neutral_stroke,
+            outline = R.drawable.icon_neutral_outlined
         ),
         moodColor = MoodColor(
             button = MoodNeutral35,
@@ -66,9 +66,9 @@ sealed class MoodUiModel(
     data object Peaceful : MoodUiModel(
         title = "Peaceful",
         moodIcons = MoodIcons(
-            fill = R.drawable.ic_peaceful_mood,
-            stroke = R.drawable.ic_peaceful_stroke,
-            outline = R.drawable.ic_peaceful_outline
+            fill = R.drawable.icon_peaceful_mood,
+            stroke = R.drawable.icon_peaceful_stroke,
+            outline = R.drawable.icon_peaceful_outlined
         ),
         moodColor = MoodColor(
             button = MoodPeaceful35,
@@ -80,9 +80,9 @@ sealed class MoodUiModel(
     data object Sad : MoodUiModel(
         title = "Sad",
         moodIcons = MoodIcons(
-            fill = R.drawable.ic_sad_mood,
-            stroke = R.drawable.ic_sad_stroke,
-            outline = R.drawable.ic_sad_outline
+            fill = R.drawable.icon_sad_mood,
+            stroke = R.drawable.icon_sad_stroke,
+            outline = R.drawable.icon_sad_outlined
         ),
         moodColor = MoodColor(
             button = MoodSad35,
@@ -94,9 +94,9 @@ sealed class MoodUiModel(
     data object Stressed : MoodUiModel(
         title = "Stressed",
         moodIcons = MoodIcons(
-            fill = R.drawable.ic_stressed_mood,
-            stroke = R.drawable.ic_stressed_stroke,
-            outline = R.drawable.ic_stressed_outline
+            fill = R.drawable.icon_stressed_mood,
+            stroke = R.drawable.icon_stressed_stroke,
+            outline = R.drawable.icon_stressed_outlined
         ),
         moodColor = MoodColor(
             button = MoodStressed35,

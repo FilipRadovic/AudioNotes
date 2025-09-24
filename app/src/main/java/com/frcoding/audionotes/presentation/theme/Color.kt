@@ -11,6 +11,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val SofBlue = Color(0xFFE1E2EC)
+val NotesUltraLightGray = Color(0xFFF2F2F7)
 
 
 val MoodExcited35 = Color(0xFFDB6C0B)

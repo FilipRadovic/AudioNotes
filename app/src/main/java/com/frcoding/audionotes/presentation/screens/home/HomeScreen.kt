@@ -1,5 +1,7 @@
 package com.frcoding.audionotes.presentation.screens.home
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -19,6 +21,7 @@ import com.frcoding.audionotes.navigation.NavigationState
 import com.frcoding.audionotes.navigation.Screen
 import com.frcoding.audionotes.presentation.core.base.BaseContentLayout
 import com.frcoding.audionotes.presentation.screens.home.components.EmptyHomeScreen
+import com.frcoding.audionotes.presentation.screens.home.components.FilterList
 import com.frcoding.audionotes.presentation.screens.home.components.HomeFAB
 import com.frcoding.audionotes.presentation.screens.home.components.HomeTopBar
 import com.frcoding.audionotes.presentation.screens.home.components.NotesEntries
@@ -27,6 +30,7 @@ import com.frcoding.audionotes.presentation.screens.home.components.RecordingBot
 import com.frcoding.audionotes.presentation.screens.home.handling.HomeActionEvent
 import com.frcoding.audionotes.presentation.screens.home.handling.HomeUiAction
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreenRoot(
     navigationState: NavigationState,
@@ -48,7 +52,20 @@ fun HomeScreenRoot(
             )
         },
         floatingActionButton = {
-            HomeFAB()
+            HomeFAB(
+                onResult = { isGranted, isLongClicked ->
+                    if (isGranted) {
+                        if (isLongClicked) {
+                            viewModel.onUiAction(HomeUiAction.ActionButtonStartRecording)
+                        } else {
+                            viewModel.onUiAction(HomeUiAction.StartRecording)
+                        }
+                    }
+                },
+                onLongPressedRelease = { isEntryCanceled ->
+                    viewModel.onUiAction(HomeUiAction.ActionButtonStopRecording(saveFile = !isEntryCanceled))
+                }
+            )
         },
         actionsEventHandler = { _, actionEvent ->
             when(actionEvent) {
@@ -81,6 +98,7 @@ fun HomeScreenRoot(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
@@ -114,5 +132,21 @@ fun HomeScreen(
         )
     }
 
+    if (uiState.filterState.isMoodsOpen) {
+        FilterList(
+            filterItems = uiState.filterState.moodFilterItems,
+            onItemClick = { onUiAction(HomeUiAction.MoodFilterItemClicked(it)) },
+            onDismissClicked = { onUiAction(HomeUiAction.MoodsFilterToggled) },
+            startOffset = filterOffset
+        )
+    }
 
+    if (uiState.filterState.isTopicsOpen) {
+        FilterList(
+            filterItems = uiState.filterState.topicFilterItem,
+            onItemClick = { onUiAction(HomeUiAction.TopicFilterItemClicked(it)) },
+            onDismissClicked = { onUiAction(HomeUiAction.TopicsFilterToggled) },
+            startOffset = filterOffset
+        )
+    }
 }
