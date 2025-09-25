@@ -1,10 +1,15 @@
 package com.frcoding.audionotes.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.frcoding.audionotes.presentation.screens.entry.EntryScreenRoot
 import com.frcoding.audionotes.presentation.screens.home.HomeScreenRoot
+import com.frcoding.audionotes.utils.Constants
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.homeRoute(
     navigationState: NavigationState,
     isDataLoaded: () -> Unit,
@@ -17,6 +22,28 @@ fun NavGraphBuilder.homeRoute(
             isDataLoaded = isDataLoaded,
             isLaunchedFromWidget = isLaunchedFromWidget,
             modifier = modifier
+        )
+    }
+}
+
+fun NavGraphBuilder.entryRoute(
+    navigationState: NavigationState,
+    modifier: Modifier
+) {
+    composable(
+        route = Screen.Entry.routeWithArgs,
+        arguments = Screen.Entry.arguments
+    ) { navBackStackEntry ->
+        val audioFilePath = navBackStackEntry.arguments?.getString(Screen.Entry.AUDIO_FILE_PATH) ?: ""
+        val amplitudeLogFilePath = navBackStackEntry.arguments?.getString(Screen.Entry.AMPLITUDE_LOG_FILE_PATH) ?: ""
+        val entryId = navBackStackEntry.arguments?.getLong(Screen.Entry.ID) ?: Constants.UNDEFINED_ENTRY_ID
+
+        EntryScreenRoot(
+            modifier = modifier,
+            navigationState = navigationState,
+            audioFilePath = audioFilePath,
+            amplitudeLogFilePath = amplitudeLogFilePath,
+            entryId = entryId
         )
     }
 }
