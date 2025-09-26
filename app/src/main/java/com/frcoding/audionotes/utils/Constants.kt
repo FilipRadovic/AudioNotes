@@ -10,4 +10,6 @@ object Constants {
     const val UNDEFINED_ENTRY_ID = -1L
     const val KEY_WIDGET_INTENT = "from_widget"
     const val UNDEFINED_MOOD_ICON_RES = 0
+    const val KEY_MOOD_SETTINGS = "mood_settings"
+    const val KEY_TOPIC_SETTINGS = "topic_settings"
 }

@@ -26,6 +26,7 @@ fun NavGraphBuilder.homeRoute(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.entryRoute(
     navigationState: NavigationState,
     modifier: Modifier

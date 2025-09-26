@@ -37,3 +37,5 @@ val MoodStressed95 = Color(0xFFF8EFEF)
 val MoodUndefined35 = Color(0xFF00419C)
 val MoodUndefined80 = Color(0xFFBAC6E9)
 val MoodUndefined95 = Color(0xFFEEF0FF)
+
+val PalettesSecondary70 = Color(0xFF9FABCD)

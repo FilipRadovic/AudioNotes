@@ -28,5 +28,4 @@ interface EntryUiAction: UiAction {
 
     data object LeaveDialogToggled : EntryUiAction
     data object LeaveDialogConfirmClicked : EntryUiAction
-    data object TranscribeButtonClicked : EntryUiAction
 }

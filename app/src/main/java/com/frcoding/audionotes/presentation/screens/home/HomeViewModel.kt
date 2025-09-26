@@ -263,7 +263,8 @@ class HomeViewModel @Inject constructor(
             stopEntriesPlaying()
             sendActionEvent(
                 HomeActionEvent.NavigateToEntryScreen(
-                    Uri.encode(audioFilePath), Uri.encode(amplitudeLogFilePath)
+                    Uri.encode(audioFilePath) ?: "",
+                    Uri.encode(amplitudeLogFilePath) ?: ""
                 )
             )
         }

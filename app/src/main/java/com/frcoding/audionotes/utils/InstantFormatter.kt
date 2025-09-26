@@ -8,13 +8,12 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-
+@RequiresApi(Build.VERSION_CODES.O)
 object InstantFormatter {
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private val zoneId: ZoneId = ZoneId.systemDefault()
     private val englishLocal: Locale = Locale("en", "US")
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun formatRelativeToDay(instant: Instant): String {
         val today = LocalDate.now(zoneId)
         val yesterday = today.minusDays(1)
@@ -26,14 +25,11 @@ object InstantFormatter {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun formatHoursAndMinutes(instant: Instant): String {
         val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-        return instant.atZone(zoneId).toLocalDate().format(timeFormatter)
+        return instant.atZone(zoneId).toLocalDateTime().format(timeFormatter)
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
     fun formatMillisToTime(timeMillis: Long): String {
         val durationInSeconds = timeMillis / 1000
         val localDateTime = LocalDateTime.ofInstant(

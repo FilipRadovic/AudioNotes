@@ -29,6 +29,12 @@
     <string name="confirm">Confirm</string>
     <string name="leave">Leave</string>
     <string name="leave_dialog_supporting_text">Are you sure you want to cancel this voice note?</string>
+    <string name="add_title">Add title...</string>
+    <string name="choose_mood">Choose Mood</string>
+    <string name="delete_topic">Delete topic</string>
+    <string name="topic">Topic</string>
+    <string name="add_description">Add description</string>
+    <string name="create_topic">Create topic %1$s</string>
 
 
 </resources>
