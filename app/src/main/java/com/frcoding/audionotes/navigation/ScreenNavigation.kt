@@ -2,11 +2,13 @@ package com.frcoding.audionotes.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.frcoding.audionotes.presentation.screens.entry.EntryScreenRoot
 import com.frcoding.audionotes.presentation.screens.home.HomeScreenRoot
+import com.frcoding.audionotes.presentation.screens.settings.SettingsScreenRoot
 import com.frcoding.audionotes.utils.Constants
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -35,9 +37,12 @@ fun NavGraphBuilder.entryRoute(
         route = Screen.Entry.routeWithArgs,
         arguments = Screen.Entry.arguments
     ) { navBackStackEntry ->
-        val audioFilePath = navBackStackEntry.arguments?.getString(Screen.Entry.AUDIO_FILE_PATH) ?: ""
-        val amplitudeLogFilePath = navBackStackEntry.arguments?.getString(Screen.Entry.AMPLITUDE_LOG_FILE_PATH) ?: ""
-        val entryId = navBackStackEntry.arguments?.getLong(Screen.Entry.ID) ?: Constants.UNDEFINED_ENTRY_ID
+        val audioFilePath =
+            navBackStackEntry.arguments?.getString(Screen.Entry.AUDIO_FILE_PATH) ?: ""
+        val amplitudeLogFilePath =
+            navBackStackEntry.arguments?.getString(Screen.Entry.AMPLITUDE_LOG_FILE_PATH) ?: ""
+        val entryId =
+            navBackStackEntry.arguments?.getLong(Screen.Entry.ID) ?: Constants.UNDEFINED_ENTRY_ID
 
         EntryScreenRoot(
             modifier = modifier,
@@ -45,6 +50,18 @@ fun NavGraphBuilder.entryRoute(
             audioFilePath = audioFilePath,
             amplitudeLogFilePath = amplitudeLogFilePath,
             entryId = entryId
+        )
+    }
+}
+
+fun NavGraphBuilder.settingsRoute(
+    navigationState: NavigationState,
+    modifier: Modifier = Modifier
+) {
+    composable(route = Screen.Settings.route) {
+        SettingsScreenRoot(
+            modifier = modifier,
+            navigationState = navigationState
         )
     }
 }
