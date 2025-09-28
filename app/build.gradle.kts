@@ -77,4 +77,8 @@ dependencies {
 
     // Extended icons
     implementation(libs.androidx.material.icons.extended)
+
+    // Splashscreen
+    implementation(libs.androidx.splashscreen)
+
 }

@@ -1,14 +1,14 @@
 package com.frcoding.audionotes.presentation.theme
 
+import android.app.Activity
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -17,9 +17,22 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = NotesBlue,
+    background = NotesLightBlue,
+    surface = Color.White,
+    surfaceVariant = NotesSofBlue,
+    onPrimary = Color.White,
+    onSurface = NotesDark,
+    onSurfaceVariant = NotesGrayBlue,
+    secondary = NotesDarkSteel,
+    outline = NotesMutedGray,
+    outlineVariant = NotesLightGray,
+    errorContainer = NotesSoftPeach,
+    onErrorContainer = NotesRed,
+    onPrimaryContainer = NotesPaleBlue,
+    surfaceTint = NotesDeepBlue,
+    secondaryContainer = NotesDustyBlue
+)
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -30,23 +43,22 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Color(0xFF1C1B1F),
     onSurface = Color(0xFF1C1B1F),
     */
-)
 
 @Composable
 fun AudioNotesTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    val colorScheme = LightColorScheme
+    val view = LocalView.current
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                window.isNavigationBarContrastEnforced = false
+            }
+        }
     }
 
     MaterialTheme(
