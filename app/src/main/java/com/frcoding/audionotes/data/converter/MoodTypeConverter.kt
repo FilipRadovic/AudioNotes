@@ -11,8 +11,8 @@ class MoodTypeConverter {
     fun toMoodType(value: String): MoodType {
         return when (value) {
             MoodType.Excited.title -> MoodType.Excited
-            MoodType.Peaceful.title -> MoodType.Peaceful
             MoodType.Neutral.title -> MoodType.Neutral
+            MoodType.Peaceful.title -> MoodType.Peaceful
             MoodType.Sad.title -> MoodType.Sad
             MoodType.Stressed.title -> MoodType.Stressed
             else -> MoodType.Undefined

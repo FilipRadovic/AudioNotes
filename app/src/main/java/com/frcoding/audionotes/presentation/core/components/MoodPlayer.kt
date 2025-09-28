@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -54,9 +54,9 @@ fun MoodPlayer(
             Surface(
                 modifier = Modifier
                     .size(32.dp)
-                    .shadow(elevation = 4.dp, shape = CircleShape)
+                    .shadow(elevation = 4.dp, CircleShape)
                     .clip(CircleShape)
-                    .clickable{
+                    .clickable {
                         when (playerState.action) {
                             PlayerState.Action.Initializing -> onPlayClick()
                             PlayerState.Action.Paused -> onResumeClick()
@@ -70,30 +70,30 @@ fun MoodPlayer(
                     imageVector = when (playerState.action) {
                         PlayerState.Action.Initializing -> Icons.Default.PlayArrow
                         PlayerState.Action.Paused -> Icons.Default.PlayArrow
-                        //TODO change icons for playing and resumed
-                        PlayerState.Action.Playing -> Icons.Filled.Refresh
-                        PlayerState.Action.Resumed -> Icons.Filled.Refresh
+                        PlayerState.Action.Playing -> Icons.Default.Pause
+                        PlayerState.Action.Resumed -> Icons.Default.Pause
                     },
                     contentDescription = stringResource(R.string.play_button),
                     modifier = Modifier.padding(4.dp),
                     tint = moodColor.button
                 )
-
-                AudioWaveform(
-                    amplitudeLogFilePath = playerState.amplitudeLogFilePath,
-                    playbackPosition = playerState.currentPosition,
-                    totalDuration = playerState.duration,
-                    colorPlayed = moodColor.button,
-                    colorRemaining = moodColor.track,
-                    modifier = Modifier.weight(1f)
-                )
-
-                PlayerTimer(
-                    duration = playerState.durationText,
-                    currentPosition = playerState.currentPositionText,
-                    modifier = Modifier.padding(end = 4.dp)
-                )
             }
+
+            AudioWaveform(
+                amplitudeLogFilePath = playerState.amplitudeLogFilePath,
+                playbackPosition = playerState.currentPosition,
+                totalDuration = playerState.duration,
+                colorPlayed = moodColor.button,
+                colorRemaining = moodColor.track,
+                modifier = Modifier.weight(1f)
+            )
+
+            PlayerTimer(
+                duration = playerState.durationText,
+                currentPosition = playerState.currentPositionText,
+                modifier = Modifier.padding(end = 4.dp)
+            )
+
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import com.frcoding.audionotes.domain.entity.Entry
 import com.frcoding.audionotes.presentation.core.base.handling.UiState
 import com.frcoding.audionotes.presentation.core.state.PlayerState
+import com.frcoding.audionotes.presentation.core.utils.MoodUiModel
 import com.frcoding.audionotes.utils.Constants
 import java.time.Instant
 
@@ -35,8 +36,7 @@ data class HomeUiState(
     data class FilterState(
         val isMoodsOpen: Boolean = false,
         val isTopicsOpen: Boolean = false,
-        //TODO
-        val moodFilterItems: List<FilterItem> = listOf(),
+        val moodFilterItems: List<FilterItem> = MoodUiModel.allMoods.map { FilterItem(title = it.title) },
         val topicFilterItem: List<FilterItem> = listOf()
     ) {
         data class FilterItem(
@@ -44,5 +44,4 @@ data class HomeUiState(
             val isChecked: Boolean = false
         )
     }
-
 }

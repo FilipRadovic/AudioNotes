@@ -5,8 +5,8 @@ sealed class MoodType(
 ) {
     data object Undefined : MoodType()
     data object Excited : MoodType("Excited")
-    data object Peaceful : MoodType("Peaceful")
     data object Neutral: MoodType("Neutral")
+    data object Peaceful : MoodType("Peaceful")
     data object Sad: MoodType("Sad")
     data object Stressed : MoodType("Stressed")
 }

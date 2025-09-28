@@ -74,4 +74,7 @@ dependencies {
 
     // Gson
     implementation(libs.gson)
+
+    // Extended icons
+    implementation(libs.androidx.material.icons.extended)
 }

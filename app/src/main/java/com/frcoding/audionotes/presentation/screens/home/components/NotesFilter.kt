@@ -27,8 +27,6 @@ import com.frcoding.audionotes.R
 import com.frcoding.audionotes.presentation.screens.home.HomeUiState
 import com.frcoding.audionotes.presentation.screens.home.handling.HomeUiAction
 import com.frcoding.audionotes.presentation.screens.home.HomeUiState.FilterState
-import com.frcoding.audionotes.R.string.all_moods
-import com.frcoding.audionotes.R.string.clear_filter
 import com.frcoding.audionotes.presentation.core.utils.toMoodUiModel
 
 @Composable
@@ -57,20 +55,30 @@ fun NotesFilter(
                     }
                 )
             }
+
+            item {
+                FilterChip(
+                    defaultTitle = stringResource(R.string.all_topics),
+                    filterItems = filterState.topicFilterItem,
+                    isFilterSelected = filterState.isTopicsOpen,
+                    onClick = { onUiAction(HomeUiAction.TopicsFilterToggled) },
+                    onClearClick = { onUiAction(HomeUiAction.TopicsFilterClearClicked) },
+                )
+            }
         }
     }
 }
 
 @Composable
-fun FilterChip(
+private fun FilterChip(
     defaultTitle: String,
     filterItems: List<FilterState.FilterItem>,
     isFilterSelected: Boolean,
     onClick: () -> Unit,
     onClearClick: () -> Unit,
-    leadingIcon: @Composable (() -> Unit)? = null,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    modifier: Modifier = Modifier
+    leadingIcon: @Composable (() -> Unit)? = null
 ) {
     AssistChip(
         onClick = onClick,

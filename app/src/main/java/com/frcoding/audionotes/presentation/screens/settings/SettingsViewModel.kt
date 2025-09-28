@@ -54,7 +54,7 @@ class SettingsViewModel @Inject constructor(
     init {
         launch {
             initializeDefaultSettings()
-            observeTopicSearchResult()
+            observeTopicSearchResults()
         }
     }
 
@@ -79,12 +79,10 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    private suspend fun observeTopicSearchResult() {
+    private suspend fun observeTopicSearchResults() {
         searchResults.collect {
             updateTopicState {
-                it.copy(
-                    foundTopics = searchResults.value
-                )
+                it.copy(foundTopics = searchResults.value)
             }
         }
     }

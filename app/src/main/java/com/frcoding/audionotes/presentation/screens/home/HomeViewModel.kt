@@ -140,7 +140,7 @@ class HomeViewModel @Inject constructor(
             } else emptyMap()
 
             updateState { it.copy(isFilterActive = isFilterActive) }
-        }
+        }.launchIn(viewModelScope)
     }
 
     private fun setupAudioPlayerListeners() {
@@ -217,7 +217,7 @@ class HomeViewModel @Inject constructor(
         }
 
         topicFilterChecked.value = updatedTopicItems.filter { it.isChecked }
-        updateMoodFilterItems(updatedTopicItems)
+        updateTopicFilterItems(updatedTopicItems)
     }
 
     private fun startRecording() {

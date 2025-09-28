@@ -114,7 +114,7 @@ fun HomeScreen(
                 .onGloballyPositioned { coordinates ->
                     filterOffset = IntOffset(
                         coordinates.positionInParent().x.toInt(),
-                        coordinates.positionInParent().y.toInt()
+                        coordinates.positionInParent().y.toInt() + coordinates.size.height
                     )
                 }
         )

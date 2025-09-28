@@ -42,14 +42,16 @@ fun AudioWaveform(
     var amplitudeHeightCoefficients by remember { mutableStateOf(listOf<Float>()) }
 
     LaunchedEffect(totalWidth) {
-        val amplitudeCalculator = AmplitudeCalculator(
-            amplitudeLogFilePath = amplitudeLogFilePath,
-            trackWidth = totalWidth,
-            amplitudeWidth = with(density) { amplitudeWidth.toPx() },
-            spacing = with(density) { amplitudeSpacing.toPx() }
-        )
-        correctedSpacing = amplitudeCalculator.correctedSpacing()
-        amplitudeHeightCoefficients = amplitudeCalculator.heightCoefficients()
+        if (totalWidth > 0) {
+            val amplitudeCalculator = AmplitudeCalculator(
+                amplitudeLogFilePath = amplitudeLogFilePath,
+                trackWidth = totalWidth,
+                amplitudeWidth = with(density) { amplitudeWidth.toPx() },
+                spacing = with(density) { amplitudeSpacing.toPx() }
+            )
+            correctedSpacing = amplitudeCalculator.correctedSpacing()
+            amplitudeHeightCoefficients = amplitudeCalculator.heightCoefficients()
+        }
     }
 
     val animatedPlaybackPosition = animateFloatAsState(
