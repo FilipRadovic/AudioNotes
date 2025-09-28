@@ -5,6 +5,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,9 +19,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,6 +40,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
@@ -80,54 +86,77 @@ fun EntryHolder(
             modifier = Modifier.fillMaxHeight(),
         )
 
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .onSizeChanged { size ->
-                    val currentHeight = size.height
-                    if (currentHeight != holderHeight) {
-                        isHolderCollapsed = currentHeight < holderHeight
-                        holderHeight = currentHeight
-                    }
-                }
-                .padding(vertical = 8.dp),
-            shape = RoundedCornerShape(10.dp),
-            shadowElevation = 6.dp
-        ) {
-            Column(
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Surface(
                 modifier = Modifier
-                    .padding(horizontal = 14.dp)
-                    .padding(top = 12.dp, bottom = 14.dp)
+                    .fillMaxWidth()
+                    .onSizeChanged { size ->
+                        val currentHeight = size.height
+                        if (currentHeight != holderHeight) {
+                            isHolderCollapsed = currentHeight < holderHeight
+                            holderHeight = currentHeight
+                        }
+                    }
+                    .padding(vertical = 8.dp),
+                shape = RoundedCornerShape(10.dp),
+                shadowElevation = 6.dp
             ) {
-                EntryHeader(
-                    title = entry.title,
-                    creationTime = InstantFormatter.formatHoursAndMinutes(entry.creationTimestamp)
-                )
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = 14.dp)
+                        .padding(top = 12.dp, bottom = 14.dp)
+                ) {
+                    EntryHeader(
+                        title = entry.title,
+                        creationTime = InstantFormatter.formatHoursAndMinutes(entry.creationTimestamp)
+                    )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                MoodPlayer(
-                    moodColor = moodUiModel.moodColor,
-                    playerState = entryState.playerState,
-                    onPlayClick = { onUiAction(HomeUiAction.EntryPlayClick(entry.id)) },
-                    onPauseClick = { onUiAction(HomeUiAction.EntryPauseClick(entry.id)) },
-                    onResumeClick = { onUiAction(HomeUiAction.EntryResumeClick(entry.id)) },
-                )
+                    MoodPlayer(
+                        moodColor = moodUiModel.moodColor,
+                        playerState = entryState.playerState,
+                        onPlayClick = { onUiAction(HomeUiAction.EntryPlayClick(entry.id)) },
+                        onPauseClick = { onUiAction(HomeUiAction.EntryPauseClick(entry.id)) },
+                        onResumeClick = { onUiAction(HomeUiAction.EntryResumeClick(entry.id)) },
+                    )
 
-                if (entry.topics.isNotEmpty()) {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    FlowRow(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(6.dp),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp)
-                    ) {
-                        entry.topics.forEach { topic ->
-                            TopicChip(
-                                title = topic
-                            )
+                    if (entry.topics.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        FlowRow(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(6.dp),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            entry.topics.forEach { topic ->
+                                TopicChip(
+                                    title = topic
+                                )
+                            }
                         }
                     }
                 }
+            }
+
+
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .offset(x = 11.dp, y = (-6).dp)
+                    .size(24.dp)
+                    .background(
+                        color = moodUiModel.moodColor.button,
+                        shape = CircleShape
+                    )
+                    .clickable { onUiAction(HomeUiAction.DeleteEntry(entry)) },
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Delete entry",
+                    tint = Color.White,
+                    modifier = Modifier.size(16.dp)
+                )
             }
         }
     }
@@ -177,7 +206,7 @@ private fun MoodTimeline(
     ) {
         VerticalDivider(
             modifier = Modifier
-                .offset{
+                .offset {
                     IntOffset(dividerOffsetX, dividerOffsetY)
                 }
                 .height(dividerHeight.toDp()),
@@ -187,7 +216,7 @@ private fun MoodTimeline(
             modifier = Modifier
                 .padding(top = iconTopPadding, end = iconEndPadding)
                 .width(32.dp)
-                .onSizeChanged{ moodSize = it },
+                .onSizeChanged { moodSize = it },
             painter = painterResource(moodRes),
             contentScale = ContentScale.FillWidth,
             contentDescription = null

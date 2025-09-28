@@ -1,8 +1,6 @@
 package com.frcoding.audionotes.presentation.screens.entry
 
-import android.content.Context
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.viewModelScope
 import com.frcoding.audionotes.domain.audio.AudioPlayer
@@ -81,10 +79,6 @@ class EntryViewModel @AssistedInject constructor(
         setupAudioPlayerListeners()
         observeAudioPlayerCurrentPosition()
     }
-
-//    fun copyDatabase(context: Context) {
-//        DatabaseUtils.copyDatabaseToFilesDir(context)
-//    }
 
 
     override fun onUiAction(uiAction: EntryUiAction) {
@@ -288,20 +282,4 @@ class EntryViewModel @AssistedInject constructor(
             entryId: Long
         ): EntryViewModel
     }
-
-
-//    object DatabaseUtils {
-//        fun copyDatabaseToFilesDir(context: Context) {
-//            val dbFile = context.getDatabasePath("entry_database")
-//            val copyFile = File(context.filesDir, "entry_database_copy")
-//
-//            dbFile.inputStream().use { input ->
-//                copyFile.outputStream().use { output ->
-//                    input.copyTo(output)
-//                }
-//            }
-//
-//            Log.d("DatabaseUtils", "Database copied to: ${copyFile.absolutePath}")
-//        }
-//    }
 }

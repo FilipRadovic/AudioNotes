@@ -2,6 +2,7 @@ package com.frcoding.audionotes.presentation.screens.home
 
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.viewModelScope
 import com.frcoding.audionotes.domain.audio.AudioPlayer
@@ -24,6 +25,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
+import java.io.File
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -97,6 +99,8 @@ class HomeViewModel @Inject constructor(
             HomeUiAction.TopicsFilterToggled -> toggleTopicFilter()
 
             HomeUiAction.TopicsFilterClearClicked -> clearTopicFilter()
+
+            is HomeUiAction.DeleteEntry -> deleteEntry(uiAction.entry)
         }
     }
 
@@ -428,6 +432,28 @@ class HomeViewModel @Inject constructor(
                 .toInstant()
         }.mapValues { (_, entryList) ->
             entryList.map { EntryHolderState(it) }
+        }
+    }
+
+    private fun deleteEntry(entry: Entry) {
+        launch {
+            try {
+                deleteFile(entry.audioFilePath)
+                deleteFile(entry.amplitudeLogFilePath)
+
+                entryRepository.deleteEntry(entry)
+            } catch (e: Exception) {
+                Log.e("EntryViewModel", "Failed to delete entry: ${e.message}")
+            }
+        }
+    }
+
+    private fun deleteFile(filePath: String): Boolean {
+        val file = File(filePath)
+        return if (file.exists()) {
+            file.delete()
+        } else {
+            false
         }
     }
 

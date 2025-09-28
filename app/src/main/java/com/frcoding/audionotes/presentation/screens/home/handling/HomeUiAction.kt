@@ -1,5 +1,6 @@
 package com.frcoding.audionotes.presentation.screens.home.handling
 
+import com.frcoding.audionotes.domain.entity.Entry
 import com.frcoding.audionotes.presentation.core.base.handling.UiAction
 
 sealed interface HomeUiAction : UiAction {
@@ -23,4 +24,5 @@ sealed interface HomeUiAction : UiAction {
     data class EntryPauseClick(val entryId: Long) : HomeUiAction
     data class EntryResumeClick(val entryId: Long) : HomeUiAction
 
+    data class DeleteEntry(val entry: Entry) : HomeUiAction
 }
