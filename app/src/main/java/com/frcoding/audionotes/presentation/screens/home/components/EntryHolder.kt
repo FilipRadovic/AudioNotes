@@ -47,11 +47,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.frcoding.audionotes.presentation.core.components.ExpandableText
 import com.frcoding.audionotes.presentation.core.components.MoodPlayer
 import com.frcoding.audionotes.presentation.core.utils.toUiModel
 import com.frcoding.audionotes.presentation.screens.home.HomeUiState
@@ -120,6 +122,18 @@ fun EntryHolder(
                         onPauseClick = { onUiAction(HomeUiAction.EntryPauseClick(entry.id)) },
                         onResumeClick = { onUiAction(HomeUiAction.EntryResumeClick(entry.id)) },
                     )
+
+                    if (entry.description.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(10.dp))
+                        ExpandableText(
+                            text = entry.description,
+                            style = MaterialTheme.typography.bodyMedium,
+                            clickableTextStyle = SpanStyle(
+                                fontWeight = FontWeight.Medium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        )
+                    }
 
                     if (entry.topics.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(8.dp))
